@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	    <meta charset="utf-8">
+	    <title>Web v1.0</title>
+	    <script src="js/jquery-3.1.1.min.js"></script>
+	    <!-- Latest compiled and minified CSS -->
+	    <link rel="stylesheet" href="css/bootstrap.min.css">
+	    <!-- Latest compiled JavaScript -->
+	    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="row">
+       <div class="col-sm-12">
+            <div class="container">
+                <div class="jumbotron">
+                    <h1>WebServer v1.0</h1>
+                    <p>Ejemplo de configuración y uso de servicio WebServer en Autómata: Siemens S7-1200 1211 DC/DC/DC.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="container">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header"></div>
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="index.htm">Lectura</a>
+                            </li>
+                            <li><a href="escritura.htm">Escritura</a>
+                            </li>
+                            <li><a href="graficas.htm">Graficas</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 style="text-align: center;">Lectura de Variables.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4> - Entero</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h4 id="NAentero" style="text-align: center; font-size: 40px;">0</h4> </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4> - Doble Entero.</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h4 id="NAdobleentero" style="text-align: center; font-size: 40px;">0</h4> </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4> - Real.</h4>
+                    </div>
+                    <div class="panel-body">
+                        <h4 id="NAreal" style="text-align: center; font-size: 40px;">0</h4> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row navbar-fixed-bottom">
+        <div class="container">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-body" style="text-align: center;">WebServer v1.0 - <a href="http://www.eaplc.net">EAplc.net</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({cache: false});
+            setInterval(function() {
+                $.get("IOCounter.htm", function(result) {
+                    var cadena = result.split(",");
+                    $('#NAentero').text(cadena[0]);
+                    $('#NAdobleentero').text(cadena[1]);
+                    $('#NAreal').text(cadena[2]);
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!-- AWP_In_Variable Name='"Webserver".salida1' -->
+<!-- AWP_In_Variable Name='"Webserver".salida2' -->
+<!-- AWP_In_Variable Name='"Webserver".salida3' -->
+<!-- AWP_In_Variable Name='"Webserver".salida4' -->
+<!-- AWP_In_Variable Name='"Webserver".escrituraentero' -->
+<!-- AWP_In_Variable Name='"Webserver".escritura_real' -->
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Web v1.0</title>
+      <script src="js/jquery-3.1.1.min.js"></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- Latest compiled JavaScript -->
+      <script src="js/bootstrap.min.js"></script>
+      <script type="text/javascript">
+         function clickcheck (numero){
+         
+         	var x = document.getElementById("check"+numero).checked;
+         
+              if (x) {
+         
+              		url="OIsalidas"+numero+".htm";
+                    name='"Webserver".salida'+numero;
+                    val=1;
+                    sdata=escape(name)+'='+val;
+                    $.post(url,sdata,function(result){});
+         
+              } else {
+         
+              		url="OIsalidas"+numero+".htm";
+                      name='"Webserver".salida'+numero;
+                      val=0;
+                      sdata=escape(name)+'='+val;
+                      $.post(url,sdata,function(result){});
+              }
+          }
+         
+          function escritura(valor){
+         
+          	if (valor == 1) {         
+          		url="OIsalidasentero.htm";
+                name='"Webserver".escrituraentero';
+                val=$('input[id=textentero]').val();
+                console.log(val);
+                sdata=escape(name)+'='+val;
+                console.log(sdata);
+                $.post(url,sdata,function(result){});
+         
+          	}
+         
+          	if (valor == 2) {         
+          			url="OIsalidasreal.htm";
+                    name='"Webserver".escritura_real';
+                    val=$('input[id=textreal]').val();
+                    console.log(val);
+                    sdata=escape(name)+'='+val;
+                    console.log(sdata);
+                    $.post(url,sdata,function(result){});
+          	}
+         }
+      </script>
+   </head>
+   <body>
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="container">
+               <div class="jumbotron">
+                  <h1>WebServer v1.0</h1>
+                  <p>Ejemplo de configuración y uso de servicio WebServer en Autómata: Siemens S7-1200 1211 DC/DC/DC.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="container">
+               <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                     <div class="navbar-header"></div>
+                     <ul class="nav navbar-nav">
+                        <li><a href="index.htm">Lectura</a></li>
+                        <li class="active"><a href="escritura.htm">Escritura</a></li>
+                        <li><a href="graficas.htm">Graficas</a></li>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h3 style="text-align: center;">Escritura en el PLC.</h3>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="container">
+            <div class="col-sm-4">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h4> - Salidas Digitales.</h4>
+                  </div>
+                  <div class="panel-body">
+                     <div class="row">
+                        <div class="container">
+                           <div class="col-sm-2">
+                              <div class="checkbox">
+                                 <label><input type="checkbox" id="check1" onclick="clickcheck(1)" >Output 1</label>
+                              </div>
+                              <div class="checkbox">
+                                 <label><input type="checkbox" id="check2" onclick="clickcheck(2)">Output 2</label>
+                              </div>
+                              <div class="checkbox">
+                                 <label><input type="checkbox" id="check3" onclick="clickcheck(3)">Output 3</label>
+                              </div>
+                              <div class="checkbox">
+                                 <label><input type="checkbox" id="check4" onclick="clickcheck(4)">Output 4</label>
+                              </div>
+                           </div>
+                           <div class="col-sm-2">
+                              <div class="checkbox">
+                                 <span id="salida1">Salida 1: OFF</span> 
+                              </div>
+                              <div class="checkbox">
+                                 <span id="salida2">Salida 2: OFF</span> 
+                              </div>
+                              <div class="checkbox">
+                                 <span id="salida3">Salida 3: OFF</span> 
+                              </div>
+                              <div class="checkbox">
+                                 <span id="salida4">Salida 4: OFF</span> 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-4">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h4> - Entero.</h4>
+                  </div>
+                  <div class="panel-body">
+                     <div>
+                        <h2  id="escritura_entero" style="text-align: center;">0</h2>
+                        <br>
+                     </div>
+                     <div class="input-group">
+                        <input id="textentero" type="text" class="form-control" placeholder="De -32768 a 32767">
+                        <div class="input-group-btn">
+                           <button class="btn btn-default" onclick="escritura(1)" type="submit">Actualizar</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-4">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h4> - Real.</h4>
+                  </div>
+                  <div class="panel-body">
+                     <div>
+                        <h2  id="escritura_real" style="text-align: center;">0.0</h2>
+                        <br>
+                     </div>
+                     <div class="input-group">
+                        <input id="textreal" type="text" class="form-control" placeholder="De 1.27e-38 a 3.40e+38">
+                        <div class="input-group-btn">
+                           <button class="btn btn-default" onclick="escritura(2)" type="submit">Actualizar</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row navbar-fixed-bottom">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="panel panel-primary">
+                  <div class="panel-body" style="text-align: center;">WebServer v1.0 - <a href="http://www.eaplc.net">EAplc.net</a></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script type="text/javascript">
+         $(document).ready(function(){
+             $.ajaxSetup({ cache: false });
+             setInterval(function() {
+                $.get("OIsalidastotal.htm", function(result){
+                   	var cadena = result.split(",");
+                	for (var i = cadena.length - 1; i >= 0; i--) {
+                  		var a=i+1;
+                  		if (cadena[i]==1) {
+                  			$('#salida'+a).text("Salida "+a+": ON");
+                  		} else {
+                  			$('#salida'+a).text("Salida "+a+": OFF");
+                  		}
+                   	}         
+                	$('#escritura_entero').text(cadena[4]);
+                	$('#escritura_real').text(cadena[5]);         
+                 });
+         
+             },2000);
+         });
+         
+      </script>
+   </body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Web v1.0</title>
+      <script src="js/jquery-3.1.1.min.js"></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- Latest compiled JavaScript -->
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/raphael-2.1.4.min.js"></script>
+      <script src="js/justgage.js"></script>
+   </head>
+   <body>
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="container">
+               <div class="jumbotron">
+                  <h1>WebServer v1.0</h1>
+                  <p>Ejemplo de configuración y uso de servicio WebServer en Autómata: Siemens S7-1200 1211 DC/DC/DC.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="container">
+               <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                     <div class="navbar-header"></div>
+                     <ul class="nav navbar-nav">
+                        <li><a href="index.htm">Lectura</a></li>
+                        <li><a href="escritura.htm">Escritura</a></li>
+                        <li class="active"><a href="graficas.htm">Graficas</a></li>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="container">
+            <div class="col-sm-6">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h4> - Variable#1</h4>
+                  </div>
+                  <div class="panel-body">
+                     <div id="gauge" class="200x140px" ></div>
+                     <script></script>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <div class="panel panel-primary">
+                  <div class="panel-heading">
+                     <h4> - Variable#2.</h4>
+                  </div>
+                  <div class="panel-body">
+                     <div id="gauge2" class="200x140px" ></div>
+                     <script></script>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row navbar-fixed-bottom">
+         <div class="container">
+            <div class="col-sm-12">
+               <div class="panel panel-primary">
+                  <div class="panel-body" style="text-align: center;">WebServer v1.0 - <a href="http://www.eaplc.net">EAplc.net</a></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script type="text/javascript">
+         var g1 = new JustGage({
+             id: 'gauge',
+             value: 60,
+             min: 0,
+             max: 100,
+             pointer: true,
+             gaugeWidthScale: 1.2,
+             pointerOptions: {
+               toplength: 0,
+               bottomlength: 0,
+               bottomwidth: 5
+             },
+             customSectors: [{
+               color: '#ff0000',
+               lo: 50,
+               hi: 100
+             }, {
+               color: '#00ff00',
+               lo: 0,
+               hi: 50
+             }],
+             counter: true,
+             relativeGaugeSize: true
+           });
+         
+         var g2 = new JustGage({
+             id: 'gauge2',
+             value: 60,
+             min: 0,
+             max: 100,
+             pointer: true,
+             gaugeWidthScale: 1.2,
+             pointerOptions: {
+               toplength: 0,
+               bottomlength: 0,
+               bottomwidth: 5
+             },
+             customSectors: [{
+               color: '#ff0000',
+               lo: 50,
+               hi: 100
+             }, {
+               color: '#00ff00',
+               lo: 0,
+               hi: 50
+             }],
+             counter: true,
+             relativeGaugeSize: true
+           });
+         
+            $(document).ready(function(){
+            setInterval(function() {
+         	         
+                $.get("OIsalidastotal.htm", function(result){
+                	var cadena = result.split(",");
+                	g1.refresh(cadena[6]);
+                	g2.refresh(cadena[7]);
+         
+                });
+            },1000);
+            });
+      </script>
+   </body>
+</html>
